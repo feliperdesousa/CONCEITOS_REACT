@@ -5,7 +5,7 @@ export default function Cadastro([navegar]) {
     const [senha, setSenha] = useState('')
 
     const cadastrar = async () => {
-        const resultado = await fetch('http://localhost:3000/login', {
+        const resultado = await fetch('http://localhost:3000/usuarios', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({nome, email, senha})
@@ -22,11 +22,11 @@ export default function Cadastro([navegar]) {
         <div>
             <h1>Login</h1>
             <br />
-            <input type="text" id="nome" placeholder="Digite o seu nome" value={email} onChange={(e) => setNome(e.target.value)}/>
+            <input type="text" id="nome" placeholder="Digite o seu nome" value={nome} onChange={(e) => setNome(e.target.value)}/>
             <br />
             <input type="text" id="email" placeholder="Digite o email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <br />
-            <input type="text" id="senha" placeholder="Digite a senha" value={email} onChange={(e) => setSenha(e.target.value)}/>
+            <input type="text" id="senha" placeholder="Digite a senha" value={senha} onChange={(e) => setSenha(e.target.value)}/>
             <br />
             <button onClick={() => cadastrar()}>Cadastrar</button>
             <br />

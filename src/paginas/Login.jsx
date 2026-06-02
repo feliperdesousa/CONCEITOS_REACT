@@ -23,7 +23,7 @@ export default function Login([navegar]) {
             <br />
             <input type="text" id="email" placeholder="Digite o email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             <br />
-            <input type="text" id="senha" placeholder="Digite a senha" value={email} onChange={(e) => setSenha(e.target.value)}/>
+            <input type="text" id="senha" placeholder="Digite a senha" value={senha} onChange={(e) => setSenha(e.target.value)}/>
             <br />
             <button onClick={() => entrar()}>Entrar</button>
             <br />
