@@ -10,13 +10,14 @@ export default function Usuarios() {
 
     useEffect(() => {
         document.title = 'Contagem ' + contador
-        const buscarUsuarios = async () => {
+        buscarUsuarios()
+    }, [contador])
+
+    const buscarUsuarios = async () => {
         const resposta = await fetch('https://localhost:3000/usuarios')
         const data = await resposta.json()
         setUsuarios(data);
-        }
-        buscarUsuarios()
-    }, [contador])
+    }
 
     const editar = (usuario) => {
         if(!usuario.email || !usuario.nome || !usuario.senha || !usuario.id) {
@@ -39,6 +40,14 @@ export default function Usuarios() {
         const data = await resposta.json()
     }
 
+    const deletar = async (usuario) => {
+        const resposta = await fetch(`https://localhost:3000/usuarios/${usuario.id}`, {
+            method: 'DELETE'
+        });
+        const data = await resposta.json()
+        buscarUsuarios()
+    }
+
     return (
         <div>
             <h1>Usuarios</h1>
@@ -48,10 +57,13 @@ export default function Usuarios() {
             {modal && (
                 <div className="fundo-modal">
                     <div className="modal-contend">
+                        <h1>Editar</h1> <br />
+
                         <input type="text" id="email" placeholder="Digite seu email" value={email} onChange={(e) => setEmail(e.target.value)} /> <br />
                         <input type="text" id="nome" placeholder="Digite seu nome" value={nome} onChange={(e) => setNome(e.target.value)} /> <br />
                         <input type="password" id="senha" placeholder="Digite sua senha" value={senha} onChange={(e) => setSenha(e.target.value)} /> <br />
 
+                        <button onClick={() => {setModal(false)}}>Fechar</button>
                         <button onClick={() => {confirmarEdicao()}}>Confirmar edição</button>
                     </div>
                 </div>
@@ -69,6 +81,9 @@ export default function Usuarios() {
                         STATUS: {usuario.ativo ? 'Ativo' : 'Inativo'}
                         <br />
                         <button onClick={() => { editar(usuario) }}>Editar</button>
+                        <br />
+                        <button onClick={() => { deletar(usuario) }}>Deletar</button>
+
                     </li>
                 ))}
             </ul>
